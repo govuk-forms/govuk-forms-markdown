@@ -145,6 +145,42 @@ RSpec.describe GovukFormsMarkdown do
     end
   end
 
+  describe ".render_plain_text" do
+    it "renders a paragraph as plain text" do
+      expect(described_class.render_plain_text("abc")).to eq("abc")
+    end
+
+    it "renders headings as a paragraph" do
+      expect(described_class.render_plain_text("# Heading level 1")).to eq("Heading level 1")
+    end
+
+    it "renders unordered lists with bullets" do
+      input = <<~MARKDOWN
+        * abc def
+        * xyz
+      MARKDOWN
+
+      expect(described_class.render_plain_text(input)).to eq("• abc def\n• xyz")
+    end
+
+    it "renders ordered lists with numbers" do
+      input = <<~MARKDOWN
+        1. abc def
+        2. xyz
+      MARKDOWN
+
+      expect(described_class.render_plain_text(input)).to eq("1. abc def\n2. xyz")
+    end
+
+    it "renders links as text: url" do
+      expect(described_class.render_plain_text("[Gov.uk](https://www.gov.uk)")).to eq("Gov.uk: https://www.gov.uk")
+    end
+
+    it "does not render hrules" do
+      expect(described_class.render_plain_text("---")).to eq("")
+    end
+  end
+
   describe ".validate" do
     it "returns JSON with error key being an empty array" do
       expect(validate("## Heading level 2")[:errors]).to be_empty
