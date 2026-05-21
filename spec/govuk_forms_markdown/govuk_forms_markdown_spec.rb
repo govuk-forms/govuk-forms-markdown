@@ -181,6 +181,60 @@ RSpec.describe GovukFormsMarkdown do
     end
   end
 
+  describe ".render_for_email" do
+    it "renders H2s with email inline styles" do
+      expected_html = <<~HTML
+        <h2 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 27px; line-height: 35px; font-weight: bold; color: #0B0C0C;">
+          Top heading
+        </h2>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("## Top heading"), expected_html)
+    end
+
+    it "renders H3s with email inline styles" do
+      expected_html = <<~HTML
+        <h3 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+          A heading
+        </h3>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("### A heading"), expected_html)
+    end
+
+    it "renders paragraphs" do
+      expect(described_class.render_for_email("abc")).to eq("<p>abc</p>")
+    end
+
+    it "renders a link" do
+      expected_html = <<~HTML
+        <p><a href="https://www.gov.uk" style="word-wrap: break-word; color: #1D70B8;">Some text</a>.</p>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("[Some text](https://www.gov.uk)."), expected_html)
+    end
+
+    it "renders a URL with email inline styles" do
+      expected_html = <<~HTML
+        <p><a href="https://www.gov.uk/help" style="word-wrap: break-word; color: #1D70B8;">https://www.gov.uk/help</a>.</p>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("<https://www.gov.uk/help>."), expected_html)
+    end
+
+    it "renders an email address with email inline styles" do
+      expected_html = <<~HTML
+        <p><a href="mailto:noreply@gov.uk" style="word-wrap: break-word; color: #1D70B8;">noreply@gov.uk</a></p>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("<noreply@gov.uk>"), expected_html)
+    end
+
+    it "does not render hrules" do
+      expect(described_class.render_for_email("---")).to eq("")
+    end
+  end
+
   describe ".validate" do
     it "returns JSON with error key being an empty array" do
       expect(validate("## Heading level 2")[:errors]).to be_empty
