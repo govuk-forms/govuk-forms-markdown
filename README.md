@@ -59,9 +59,17 @@ GovukFormsMarkdown.validate(markdown, allow_headings: false)
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. 
 
-## ## Contributing
+## Releasing a new version
+
+1. Update the version number in `version.rb`
+2. Run `bundle install` to update the Gemfile.lock with the new version number
+3. Edit the `CHANGELOG.md` file to add a section for the new version
+4. Create a PR to merge these changes
+5. Create a [release](https://github.com/govuk-forms/govuk-forms-markdown/releases) on GitHub. Select "Create new tag" to create a tag with the version number. Click the "Generate release notes" button, and edit the generated notes to separate out the dependency updates from the changes we've made.
+
+## Contributing
 
 We welcome contributions - please read [CONTRIBUTING.md](CONTRIBUTING.md) and the [alphagov Code of Conduct](https://github.com/alphagov/.github/blob/main/CODE_OF_CONDUCT.md) before contributing.
 
