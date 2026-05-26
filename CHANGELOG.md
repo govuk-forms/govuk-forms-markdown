@@ -2,6 +2,12 @@
 
 ## Released
 
+### [0.9.0] - 2026-05-26
+
+- Add method to format markdown as plain text [#84](https://github.com/alphagov/govuk-forms-markdown/pull/84)
+- Add method to format markdown as HTML for use in emails [#85](https://github.com/alphagov/govuk-forms-markdown/pull/85)
+- Dependency updates
+
 ### [0.8.0] - 2026-03-05
 
 - Make gem locale aware and add localised new tab text [#65](https://github.com/alphagov/govuk-forms-markdown/pull/65)
