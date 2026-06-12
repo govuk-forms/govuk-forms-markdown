@@ -30,8 +30,7 @@ module GovukFormsMarkdown
     end
 
     def hrule
-      add_to_error(:used_hrule)
-      nil
+      "#{linebreak * 2}---"
     end
 
     def codespan(code)

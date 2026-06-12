@@ -176,8 +176,8 @@ RSpec.describe GovukFormsMarkdown do
       expect(described_class.render_plain_text("[Gov.uk](https://www.gov.uk)")).to eq("Gov.uk: https://www.gov.uk")
     end
 
-    it "does not render hrules" do
-      expect(described_class.render_plain_text("---")).to eq("")
+    it "renders horizontal rules as three dashes" do
+      expect(described_class.render_plain_text("---")).to eq("---")
     end
   end
 
@@ -230,8 +230,12 @@ RSpec.describe GovukFormsMarkdown do
       expect_equal_ignoring_ws(described_class.render_for_email("<noreply@gov.uk>"), expected_html)
     end
 
-    it "does not render hrules" do
-      expect(described_class.render_for_email("---")).to eq("")
+    it "renders a styled horizontal rule" do
+      expected_html = <<~HTML
+        <hr style="border: 0; height: 1px; background: #B1B4B6; Margin: 30px 0 30px 0;">
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("---"), expected_html)
     end
   end
 

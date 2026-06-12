@@ -48,8 +48,9 @@ module GovukFormsMarkdown
     end
 
     def hrule
-      add_to_error(:used_hrule)
-      nil
+      <<~HTML
+        <hr style="border: 0; height: 1px; background: #B1B4B6; Margin: 30px 0 30px 0;">
+      HTML
     end
 
     def codespan(code)
