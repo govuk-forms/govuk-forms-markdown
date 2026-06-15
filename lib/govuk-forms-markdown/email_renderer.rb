@@ -125,11 +125,44 @@ module GovukFormsMarkdown
       HTML
     end
 
+    def inline_callout(text)
+      <<~HTML
+        <div style="margin: 0 0 20px 0; border-left: 10px solid #B1B4B6; padding: 15px 0 0.1px 15px; font-size: 19px; line-height: 25px;">
+          <p style="margin: 0 0 20px 0">#{text}</p>
+        </div>
+      HTML
+    end
+
+    def block_callout(text)
+      <<~HTML
+        <div style="margin: 0 0 20px 0; border-left: 10px solid #B1B4B6; padding: 15px 0 0.1px 15px; font-size: 19px; line-height: 25px;">
+          #{text}
+        </div>
+      HTML
+    end
+
+    def postprocess(document)
+      document_with_block_callouts = render_block_callouts(document)
+      render_inline_callouts(document_with_block_callouts)
+    end
+
   private
 
     def add_to_error(error)
       symbolized_error = error.to_sym
       errors << symbolized_error unless errors.include?(symbolized_error)
+    end
+
+    def render_block_callouts(text)
+      block_callout_regex = /<p>(?:\^\^\^)<\/p>((.|\s)*)<p>(?:\^\^\^)<\/p>/
+
+      text.gsub(block_callout_regex, block_callout('\1'))
+    end
+
+    def render_inline_callouts(text)
+      inline_callout_regex = /<p>(?:\^)(.*)(?:\^)<\/p>/
+
+      text.gsub(inline_callout_regex, inline_callout('\1'))
     end
   end
 end

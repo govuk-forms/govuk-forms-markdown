@@ -74,6 +74,19 @@ module GovukFormsMarkdown
       "#{linebreak}#{MAGIC_SEQUENCE} #{text.strip}"
     end
 
+    def inline_callout(text)
+      paragraph(text)
+    end
+
+    def block_callout(text)
+      text
+    end
+
+    def postprocess(document)
+      document_with_block_callouts = render_block_callouts(document)
+      render_inline_callouts(document_with_block_callouts)
+    end
+
   private
 
     def add_to_error(error)
@@ -83,6 +96,18 @@ module GovukFormsMarkdown
 
     def linebreak
       "\n"
+    end
+
+    def render_block_callouts(text)
+      block_callout_regex = /(?:\^\^\^)((.|\s)*)(?:\^\^\^)/
+
+      text.gsub(block_callout_regex, block_callout('\1'))
+    end
+
+    def render_inline_callouts(text)
+      inline_callout_regex = /(?:\^)(.*)(?:\^)/
+
+      text.gsub(inline_callout_regex, inline_callout('\1'))
     end
   end
 end
