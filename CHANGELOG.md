@@ -2,6 +2,11 @@
 
 ## Released
 
+### [0.10.0] - 2026-06-16
+
+- Add support for additional email formatting [#93](https://github.com/alphagov/govuk-forms-markdown/pull/93)
+- Dependency updates
+
 ### [0.9.0] - 2026-05-26
 
 - Add method to format markdown as plain text [#84](https://github.com/alphagov/govuk-forms-markdown/pull/84)
