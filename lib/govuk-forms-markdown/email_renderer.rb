@@ -30,6 +30,12 @@ module GovukFormsMarkdown
             #{text}
           </h3>
         HTML
+      elsif header_level == 4
+        <<~HTML
+          <h4 style="font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+            #{text}
+          </h4>
+        HTML
       else
         add_to_error(:heading_levels)
         paragraph(text)

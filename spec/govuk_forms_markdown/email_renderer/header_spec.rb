@@ -5,8 +5,8 @@ RSpec.describe GovukFormsMarkdown::EmailRenderer, "#header" do
 
   let(:allow_headings) { true }
 
-  non_supported_heading_levels = [1, 4, 5, 6]
-  supported_heading_levels = [2, 3]
+  non_supported_heading_levels = [1, 5, 6]
+  supported_heading_levels = [2, 3, 4]
   all_heading_levels = non_supported_heading_levels + supported_heading_levels
 
   context "when using non-supported heading levels" do
@@ -36,6 +36,16 @@ RSpec.describe GovukFormsMarkdown::EmailRenderer, "#header" do
       HTML
 
       expect(renderer.header("Heading level 3", 3).strip).to eq expected
+    end
+
+    it "formats heading level 4" do
+      expected = <<~HTML.strip
+        <h4 style="font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+          Heading level 4
+        </h4>
+      HTML
+
+      expect(renderer.header("Heading level 4", 4).strip).to eq expected
     end
   end
 
