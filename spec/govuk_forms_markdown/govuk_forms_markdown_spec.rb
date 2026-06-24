@@ -176,8 +176,16 @@ RSpec.describe GovukFormsMarkdown do
       expect(described_class.render_plain_text("[Gov.uk](https://www.gov.uk)")).to eq("Gov.uk: https://www.gov.uk")
     end
 
-    it "does not render hrules" do
-      expect(described_class.render_plain_text("---")).to eq("")
+    it "renders horizontal rules as three dashes" do
+      expect(described_class.render_plain_text("---")).to eq("---")
+    end
+
+    it "renders the inline callout" do
+      expect(described_class.render_plain_text("^Callout text^")).to eq("Callout text")
+    end
+
+    it "renders the block callout" do
+      expect(described_class.render_plain_text("^^^\n\n## Heading\n\nparagraph content\n\n^^^")).to eq("Heading\n\nparagraph content")
     end
   end
 
@@ -200,6 +208,16 @@ RSpec.describe GovukFormsMarkdown do
       HTML
 
       expect_equal_ignoring_ws(described_class.render_for_email("### A heading"), expected_html)
+    end
+
+    it "renders H4s with email inline styles" do
+      expected_html = <<~HTML
+        <h4 style="font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+          A heading
+        </h4>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("#### A heading"), expected_html)
     end
 
     it "renders paragraphs" do
@@ -230,8 +248,31 @@ RSpec.describe GovukFormsMarkdown do
       expect_equal_ignoring_ws(described_class.render_for_email("<noreply@gov.uk>"), expected_html)
     end
 
-    it "does not render hrules" do
-      expect(described_class.render_for_email("---")).to eq("")
+    it "renders a styled horizontal rule" do
+      expected_html = <<~HTML
+        <hr style="border: 0; height: 1px; background: #B1B4B6; Margin: 30px 0 30px 0;">
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("---"), expected_html)
+    end
+
+    it "renders the inline callout" do
+      expected_html = <<~HTML
+        <div style="margin: 0 0 20px 0; border-left: 10px solid #B1B4B6; padding: 15px 0 0.1px 15px; font-size: 19px; line-height: 25px;"><p style="margin: 0 0 20px 0">Callout text</p></div>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("^Callout text^"), expected_html)
+    end
+
+    it "renders the block callout" do
+      expected_html = <<~HTML
+        <div style="margin: 0 0 20px 0; border-left: 10px solid #B1B4B6; padding: 15px 0 0.1px 15px; font-size: 19px; line-height: 25px;">
+          <h2 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 27px; line-height: 35px; font-weight: bold; color: #0B0C0C;">Heading</h2>
+          <p>paragraph content</p>
+        </div>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("^^^\n\n## Heading\n\nparagraph content\n\n^^^"), expected_html)
     end
   end
 
