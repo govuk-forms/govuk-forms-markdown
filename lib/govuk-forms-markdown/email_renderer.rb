@@ -26,13 +26,13 @@ module GovukFormsMarkdown
         HTML
       elsif header_level == 3
         <<~HTML
-          <h3 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+          <h3 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 21px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
             #{text}
           </h3>
         HTML
       elsif header_level == 4
         <<~HTML
-          <h4 style="font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+          <h4 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
             #{text}
           </h4>
         HTML
