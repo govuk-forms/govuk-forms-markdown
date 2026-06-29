@@ -30,7 +30,7 @@ RSpec.describe GovukFormsMarkdown::EmailRenderer, "#header" do
 
     it "formats heading level 3" do
       expected = <<~HTML.strip
-        <h3 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+        <h3 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 21px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
           Heading level 3
         </h3>
       HTML
@@ -40,7 +40,7 @@ RSpec.describe GovukFormsMarkdown::EmailRenderer, "#header" do
 
     it "formats heading level 4" do
       expected = <<~HTML.strip
-        <h4 style="font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
+        <h4 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 19px; line-height: 25px; font-weight: bold; color: #0B0C0C;">
           Heading level 4
         </h4>
       HTML
