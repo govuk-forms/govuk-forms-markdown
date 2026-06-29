@@ -2,6 +2,11 @@
 
 ## Released
 
+### [0.11.0] - 2026-06-29
+
+- Update type scale to preserve heading hierarchy [#98](https://github.com/alphagov/govuk-forms-markdown/pull/98)
+- Dependency updates
+
 ### [0.10.0] - 2026-06-16
 
 - Add support for additional email formatting [#93](https://github.com/alphagov/govuk-forms-markdown/pull/93)
