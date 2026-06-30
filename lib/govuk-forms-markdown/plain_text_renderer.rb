@@ -74,6 +74,10 @@ module GovukFormsMarkdown
       "#{linebreak}#{MAGIC_SEQUENCE} #{text.strip}"
     end
 
+    def linebreak
+      "\n"
+    end
+
     def inline_callout(text)
       paragraph(text)
     end
@@ -92,10 +96,6 @@ module GovukFormsMarkdown
     def add_to_error(error)
       symbolized_error = error.to_sym
       errors << symbolized_error unless errors.include?(symbolized_error)
-    end
-
-    def linebreak
-      "\n"
     end
 
     def render_block_callouts(text)
