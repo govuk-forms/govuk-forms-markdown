@@ -2,6 +2,11 @@
 
 ## Released
 
+### [0.12.0] - 2026-07-01
+
+- Allow H5 elements in email renderers [#100](https://github.com/alphagov/govuk-forms-markdown/pull/100)
+- Fix issue with plaintext linebreak formatting [#101](https://github.com/alphagov/govuk-forms-markdown/pull/101)
+
 ### [0.11.0] - 2026-06-29
 
 - Update type scale to preserve heading hierarchy [#98](https://github.com/alphagov/govuk-forms-markdown/pull/98)
