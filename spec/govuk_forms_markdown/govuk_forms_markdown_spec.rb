@@ -220,6 +220,16 @@ RSpec.describe GovukFormsMarkdown do
       expect_equal_ignoring_ws(described_class.render_for_email("#### A heading"), expected_html)
     end
 
+    it "renders H5s with email inline styles" do
+      expected_html = <<~HTML
+        <h5 style="Margin: 0 0 15px 0; padding: 10px 0 0 0; font-size: 16px; line-height: 20px; font-weight: bold; color: #0B0C0C;">
+          A heading
+        </h5>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("##### A heading"), expected_html)
+    end
+
     it "renders paragraphs" do
       expect(described_class.render_for_email("abc")).to eq("<p>abc</p>")
     end
