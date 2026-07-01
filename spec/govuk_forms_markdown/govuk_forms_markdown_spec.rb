@@ -180,6 +180,10 @@ RSpec.describe GovukFormsMarkdown do
       expect(described_class.render_plain_text("---")).to eq("---")
     end
 
+    it "renders linebreaks as newline characters" do
+      expect(described_class.render_plain_text("First line  \nSecond line")).to eq("First line\nSecond line")
+    end
+
     it "renders the inline callout" do
       expect(described_class.render_plain_text("^Callout text^")).to eq("Callout text")
     end
@@ -254,6 +258,14 @@ RSpec.describe GovukFormsMarkdown do
       HTML
 
       expect_equal_ignoring_ws(described_class.render_for_email("---"), expected_html)
+    end
+
+    it "renders linebreaks as HTML linebreaks" do
+      expected_html = <<~HTML
+        <p>First line<br/>Second line</p>
+      HTML
+
+      expect_equal_ignoring_ws(described_class.render_for_email("First line  \nSecond line"), expected_html)
     end
 
     it "renders the inline callout" do
